@@ -1,0 +1,23 @@
+.menuContainer {
+  display: flex;
+  flex: 0 1 auto;
+  width: 100%;
+  position: relative;
+  align-items: center;
+  background-color: gray;
+}
+.menu {
+  display: inline-flex;
+  margin: auto 0 auto auto;
+  gap: 2rem;
+  align-items: center;
+  padding-right: 2rem;
+  height: 4rem;
+}
+.logo {
+  width: 2rem;
+  height: 2rem;
+  margin-left: 2rem;
+  background-color: red;
+  border-radius: 50%;
+}
