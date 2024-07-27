@@ -93,12 +93,6 @@ export async function PATCH(request, { params }) {
 }
 export async function DELETE(request, { params }) {
   try {
-    /*
-      acá request.json() explota cuando request es nulo, por eso está dentro del try
-      por ahora no se como solucionarlo sin aumentar la dificultad :V 
-    */
-    const body = await request.json();
-    /* manejar respuesta de json, puede ser cualquier estupidez siempre y cuando sea json xd */
     let { id } = params;
 
     if (!ObjectId.isValid(id)) {
