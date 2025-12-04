@@ -4,8 +4,10 @@
   width: 100%;
   position: relative;
   align-items: center;
-  background-color: gray;
+  background-color: #1f2937;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
 }
+
 .menu {
   display: inline-flex;
   margin: auto 0 auto auto;
@@ -14,10 +16,44 @@
   padding-right: 2rem;
   height: 4rem;
 }
+
 .logo {
-  width: 2rem;
-  height: 2rem;
   margin-left: 2rem;
-  background-color: red;
-  border-radius: 50%;
+  font-size: 1.5rem;
+  font-weight: bold;
+  color: white;
+  text-decoration: none;
+}
+
+.menuItem {
+  color: #d1d5db;
+  text-decoration: none;
+  font-weight: 500;
+  position: relative;
+  transition: color 0.2s;
+}
+
+.menuItem:hover {
+  color: white;
+}
+
+.badge {
+  background: #ef4444;
+  color: white;
+  border-radius: 1rem;
+  padding: 0.2rem 0.5rem;
+  font-size: 0.75rem;
+  margin-left: 0.5rem;
+  font-weight: bold;
+}
+
+@media (max-width: 768px) {
+  .menu {
+    gap: 1rem;
+    padding-right: 1rem;
+  }
+  .logo {
+    margin-left: 1rem;
+    font-size: 1.2rem;
+  }
 }

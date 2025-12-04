@@ -9,7 +9,8 @@
     "lint": "next lint"
   },
   "dependencies": {
-    "mongodb": "^6.8.0",
+    "@supabase/ssr": "^0.0.10",
+    "@supabase/supabase-js": "^2.47.12",
     "next": "14.2.5",
     "react": "^18",
     "react-dom": "^18"

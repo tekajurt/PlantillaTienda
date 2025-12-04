@@ -1,37 +1,25 @@
 import { NextResponse } from "next/server";
-import clientPromise from "../../../lib/mongodb";
-import { ObjectId } from "mongodb";
+import { getSupabase } from "../../../lib/supabase";
 /* 
 Conectando a la db, devuelve sino Error
 */
-const DBConnect = async (dbName) => {
-  try {
-    const client = await clientPromise;
-    const db = client.db(dbName);
-    return db;
-  } catch (error) {
-    throw new Error("Error al conectar con la DB");
-  }
-};
+// Supabase se conecta vía `getSupabase()`
 /* función GET
   obtiene y verifica id y devuelve el producto
 */
 export async function GET(request, { params }) {
   try {
-    const db = await DBConnect("tienda_test");
+    const supabase = getSupabase();
     const { id } = params;
-    if (!ObjectId.isValid(id)) {
-      return NextResponse.json({ error: "No se insertó id valida" });
-    }
-    const productos = await db
-      .collection("productos")
-      .findOne({ _id: new ObjectId(id) });
-
-    return NextResponse.json({ productos });
+    const { data, error } = await supabase
+      .from("products")
+      .select("*")
+      .eq("id", id)
+      .single();
+    if (error) throw new Error(error.message);
+    return NextResponse.json({ producto: data });
   } catch (error) {
-    return NextResponse.json({
-      error: error.message,
-    });
+    return NextResponse.json({ error: error.message });
   }
 }
 /* 
@@ -40,77 +28,48 @@ función POST, inserta datos en un nuevo documento
 */
 export async function POST(request) {
   try {
-    /*
-      acá request.json() explota cuando request es nulo, por eso está dentro del try
-      por ahora no se como solucionarlo sin aumentar la dificultad :V 
-    */
     const body = await request.json();
-    /* manejar respuesta de json, puede ser cualquier estupidez siempre y cuando sea json xd */
-
-    try {
-      /*  
-      try dentro de try? es lo mejor?
-      */
-      const db = await DBConnect("tienda_test");
-      const result = await db.collection("productos").insertOne({ name: body });
-      return NextResponse.json({ result });
-    } catch (error) {
-      return NextResponse.json({ error: error.message });
-    }
+    const supabase = getSupabase();
+    const { data, error } = await supabase
+      .from("products")
+      .insert(body)
+      .select()
+      .single();
+    if (error) return NextResponse.json({ error: error.message });
+    return NextResponse.json({ result: data });
   } catch (error) {
     return NextResponse.json({ message: error.message });
   }
 }
 export async function PATCH(request, { params }) {
   try {
-    /*
-      acá request.json() explota cuando request es nulo, por eso está dentro del try
-      por ahora no se como solucionarlo sin aumentar la dificultad :V 
-    */
     const body = await request.json();
-    /* manejar respuesta de json, puede ser cualquier estupidez siempre y cuando sea json xd */
-    let { id } = params;
-
-    if (!ObjectId.isValid(id)) {
-      return NextResponse.json({ error: "No se insertó id valida" });
-    }
-
-    try {
-      /*  
-      try dentro de try? es lo mejor?
-      */
-      const db = await DBConnect("tienda_test");
-      const result = await db
-        .collection("productos")
-        .updateOne({ _id: new ObjectId(id) }, { $set: { name: body } });
-      return NextResponse.json({ result });
-    } catch (error) {
-      return NextResponse.json({ error: error.message });
-    }
+    const { id } = params;
+    const supabase = getSupabase();
+    const { data, error } = await supabase
+      .from("products")
+      .update(body)
+      .eq("id", id)
+      .select()
+      .single();
+    if (error) return NextResponse.json({ error: error.message });
+    return NextResponse.json({ result: data });
   } catch (error) {
     return NextResponse.json({ message: error.message });
   }
 }
 export async function DELETE(request, { params }) {
   try {
-    let { id } = params;
-
-    if (!ObjectId.isValid(id)) {
-      return NextResponse.json({ error: "No se insertó id valida" });
-    }
-
-    try {
-      /*  
-      try dentro de try? es lo mejor?
-      */
-      const db = await DBConnect("tienda_test");
-      const result = await db
-        .collection("productos")
-        .deleteOne({ _id: new ObjectId(id) });
-      return NextResponse.json({ result });
-    } catch (error) {
-      return NextResponse.json({ error: error.message });
-    }
+    const { id } = params;
+    const supabase = getSupabase();
+    const { data, error } = await supabase
+      .from("products")
+      .delete()
+      .eq("id", id)
+      .select()
+      .single();
+    if (error) return NextResponse.json({ error: error.message });
+    return NextResponse.json({ result: data });
   } catch (error) {
     return NextResponse.json({ message: error.message });
   }

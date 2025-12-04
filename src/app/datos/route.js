@@ -1,32 +1,31 @@
 import { NextResponse } from "next/server";
-import clientPromise from "../../lib/mongodb";
-/* 
-Conectando a la db, devuelve sino Error
+import { getSupabase } from "../../lib/supabase";
+/*
+Endpoint GET: obtiene productos desde Supabase tabla `products`.
+Soporta parámetros opcionales: `q`, `category`, `limit`, `offset`.
 */
-const DBConnect = async (dbName) => {
+export async function GET(request) {
   try {
-    const client = await clientPromise;
-    const db = client.db(dbName);
-    return db;
-  } catch (error) {
-    throw new Error("Error al conectar con la DB");
-  }
-};
-/* 
-Solo get por ahora
-el resto lanza un error de BAD METHOD o algo por el estilo
-*/
-export async function GET() {
-  /*
-Función GET, conecta al db, obtiene todos los documentos en una colección
-y los transforma en arreglo
-*/
-  try {
-    const db = await DBConnect("tienda_test");
-    const products = await db.collection("productos").find({}).toArray();
+    const supabase = getSupabase();
+    const url = new URL(request.url);
+    const q = url.searchParams.get("q") || "";
+    const category = url.searchParams.get("category") || "";
+    const limit = parseInt(url.searchParams.get("limit") || "20", 10);
+    const offset = parseInt(url.searchParams.get("offset") || "0", 10);
 
-    return new NextResponse(JSON.stringify(products), { status: 200 });
+    let query = supabase
+      .from("products")
+      .select("*", { count: "exact" })
+      .range(offset, offset + limit - 1);
+
+    if (category) query = query.eq("category", category);
+    if (q) query = query.ilike("title", `%${q}%`);
+
+    const { data, error } = await query;
+    if (error) throw new Error(error.message);
+
+    return NextResponse.json({ data }, { status: 200 });
   } catch (error) {
-    return new NextResponse.json({ error: error.message, status: 500 });
+    return NextResponse.json({ error: error.message }, { status: 500 });
   }
 }

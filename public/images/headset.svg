@@ -1,0 +1,11 @@
+<svg width="400" height="400" xmlns="http://www.w3.org/2000/svg">
+  <rect width="400" height="400" fill="#ec4899"/>
+  <ellipse cx="200" cy="160" rx="100" ry="80" fill="#fff" opacity="0.3"/>
+  <rect x="160" y="150" width="80" height="60" rx="8" fill="#1f2937" opacity="0.2"/>
+  <path d="M 140 160 Q 120 180 140 200" stroke="#fff" stroke-width="12" fill="none" opacity="0.3"/>
+  <path d="M 260 160 Q 280 180 260 200" stroke="#fff" stroke-width="12" fill="none" opacity="0.3"/>
+  <circle cx="170" cy="240" r="8" fill="#fff" opacity="0.3"/>
+  <circle cx="230" cy="240" r="8" fill="#fff" opacity="0.3"/>
+  <line x1="170" y1="240" x2="230" y2="240" stroke="#fff" stroke-width="6" opacity="0.3"/>
+  <text x="200" y="360" font-family="Arial, sans-serif" font-size="24" fill="#fff" text-anchor="middle" font-weight="bold">Auriculares</text>
+</svg>

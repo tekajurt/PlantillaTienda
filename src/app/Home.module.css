@@ -1,5 +1,41 @@
 .contenido {
   display: flex;
   flex: 1 1 auto;
-  background-color: red;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  min-height: 70vh;
+}
+
+.hero {
+  text-align: center;
+  color: white;
+  padding: 3rem;
+}
+
+.hero h1 {
+  font-size: 3rem;
+  margin-bottom: 1rem;
+}
+
+.hero p {
+  font-size: 1.5rem;
+  margin-bottom: 2rem;
+  opacity: 0.9;
+}
+
+.cta {
+  display: inline-block;
+  padding: 1rem 2.5rem;
+  background: white;
+  color: #667eea;
+  text-decoration: none;
+  border-radius: 0.5rem;
+  font-weight: 600;
+  font-size: 1.1rem;
+  transition: transform 0.2s;
+}
+
+.cta:hover {
+  transform: scale(1.05);
 }

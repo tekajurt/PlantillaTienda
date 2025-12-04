@@ -1,0 +1,156 @@
+.container {
+  padding: 2rem;
+  max-width: 1000px;
+  margin: 0 auto;
+}
+
+.container h1 {
+  margin-bottom: 2rem;
+}
+
+.vacio {
+  text-align: center;
+  padding: 2rem;
+  color: #6b7280;
+}
+
+.btnContinuar {
+  display: block;
+  margin: 1rem auto;
+  padding: 1rem 2rem;
+  background: #2563eb;
+  color: white;
+  border: none;
+  border-radius: 0.5rem;
+  font-size: 1rem;
+  cursor: pointer;
+}
+
+.btnContinuar:hover {
+  background: #1d4ed8;
+}
+
+.items {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  margin-bottom: 2rem;
+}
+
+.item {
+  display: grid;
+  grid-template-columns: 80px 1fr auto auto auto;
+  gap: 1rem;
+  align-items: center;
+  padding: 1rem;
+  background: white;
+  border: 1px solid #e5e7eb;
+  border-radius: 0.5rem;
+}
+
+.itemImg {
+  width: 80px;
+  height: 80px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  border-radius: 0.5rem;
+  background: #f5f5f5;
+}
+
+.placeholderImg {
+  font-size: 0.75rem;
+  color: #999;
+}
+
+.itemInfo h3 {
+  font-size: 1rem;
+  margin: 0;
+}
+
+.precio {
+  color: #6b7280;
+  margin: 0.25rem 0 0 0;
+}
+
+.itemCantidad {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+  font-size: 0.9rem;
+}
+
+.cantidadInput {
+  width: 60px;
+  padding: 0.5rem;
+  border: 1px solid #ddd;
+  border-radius: 0.25rem;
+}
+
+.itemSubtotal {
+  font-weight: bold;
+  font-size: 1.1rem;
+  color: #2563eb;
+}
+
+.btnEliminar {
+  padding: 0.5rem 1rem;
+  background: #dc2626;
+  color: white;
+  border: none;
+  border-radius: 0.25rem;
+  cursor: pointer;
+  font-size: 0.9rem;
+}
+
+.btnEliminar:hover {
+  background: #b91c1c;
+}
+
+.resumen {
+  background: #f9fafb;
+  padding: 2rem;
+  border-radius: 0.5rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.resumen h2 {
+  margin: 0;
+  color: #2563eb;
+}
+
+.btnCheckout {
+  padding: 1rem 2rem;
+  background: #059669;
+  color: white;
+  border: none;
+  border-radius: 0.5rem;
+  font-size: 1.1rem;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.btnCheckout:hover {
+  background: #047857;
+}
+
+@media (max-width: 768px) {
+  .item {
+    grid-template-columns: 60px 1fr;
+    gap: 0.5rem;
+  }
+  .itemCantidad,
+  .itemSubtotal {
+    grid-column: 1 / -1;
+  }
+  .btnEliminar {
+    grid-column: 1 / -1;
+  }
+  .resumen {
+    flex-direction: column;
+    gap: 1rem;
+  }
+}
